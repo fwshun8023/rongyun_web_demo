@@ -729,6 +729,10 @@ ul {
     background-color: white;
 }
 
+#Messages.send-hide {
+    bottom: 0;
+}
+
 #Messages.rongcloud-empty .rongcloud-emptyBox {
     display: block;
 }

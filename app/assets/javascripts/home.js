@@ -15,8 +15,8 @@ demo.controller("main", ["$scope", "WebIMWidget", function($scope,WebIMWidget) {
       conversationListPosition: WebIMWidget.EnumConversationListPosition.left,
       onSuccess: function(id){
         // PRIVATE 私聊，GROUP 群聊
-        // WebIMWidget.setConversation(WebIMWidget.EnumConversationType.GROUP, "g1", "群1", false);
-        WebIMWidget.setConversation(WebIMWidget.EnumConversationType.PRIVATE, "f3", "李四3", true);
+        WebIMWidget.setConversation(WebIMWidget.EnumConversationType.GROUP, "g1", "群1", false);
+        // WebIMWidget.setConversation(WebIMWidget.EnumConversationType.PRIVATE, "f3", "李四3", true);
         // WebIMWidget.setConversation(WebIMWidget.EnumConversationType.PRIVATE, "f2", "fanwei", true);
         // WebIMWidget.setConversation(WebIMWidget.EnumConversationType.PRIVATE, "f1", "张三1", true);
       },
@@ -60,7 +60,7 @@ demo.controller("main", ["$scope", "WebIMWidget", function($scope,WebIMWidget) {
       })
 
       if(group){
-        obj.onSuccess({name:group.name,portraitUri:group.portraitUri});
+        obj.onSuccess({name: group.name, portraitUri: group.portraitUri, sendShow: group.sendShow });
       }
     });
 
