@@ -14,8 +14,11 @@ demo.controller("main", ["$scope", "WebIMWidget", function($scope,WebIMWidget) {
       displayConversationList: true,
       conversationListPosition: WebIMWidget.EnumConversationListPosition.left,
       onSuccess: function(id){
-        WebIMWidget.setConversation(WebIMWidget.EnumConversationType.GROUP, "g1", "群1");
-        console.log(id);
+        // PRIVATE 私聊，GROUP 群聊
+        // WebIMWidget.setConversation(WebIMWidget.EnumConversationType.GROUP, "g1", "群1", false);
+        WebIMWidget.setConversation(WebIMWidget.EnumConversationType.PRIVATE, "f3", "李四3", true);
+        // WebIMWidget.setConversation(WebIMWidget.EnumConversationType.PRIVATE, "f2", "fanwei", true);
+        // WebIMWidget.setConversation(WebIMWidget.EnumConversationType.PRIVATE, "f1", "张三1", true);
       },
       onError: function(error){
         console.log("error:" + error);
@@ -27,10 +30,9 @@ demo.controller("main", ["$scope", "WebIMWidget", function($scope,WebIMWidget) {
     WebIMWidget.setUserInfoProvider(function(targetId,obj){
       var user;
       userlist = [
-      {"id":"f1","name":"张三1","portraitUri":""},
-      {"id":"f2","name":"fanwei","portraitUri":""},
-      {"id":"f3","name":"李四3","portraitUri":""},
-      {"id":"g1","name":"群1","portraitUri":""}
+      {"id": "f1", "name":"张三1", "portraitUri": "", "sendShow": true},
+      {"id": "f2", "name":"fanwei", "portraitUri": "", "sendShow": true},
+      {"id": "f3", "name":"李四3", "portraitUri": "", "sendShow": true}
       ]
       
 
@@ -41,7 +43,24 @@ demo.controller("main", ["$scope", "WebIMWidget", function($scope,WebIMWidget) {
       })
 
       if(user){
-        obj.onSuccess({id:user.id,name:user.name,portraitUri:user.portraitUri});
+        obj.onSuccess({ id: user.id, name: user.name, portraitUri: user.portraitUri, sendShow: user.sendShow });
+      }
+    });
+
+    WebIMWidget.setGroupInfoProvider(function(targetId,obj){
+      var group;
+      grouplist = [
+      {"id": "g1", "name": "群1", "portraitUri": "", "sendShow": false}
+      ]
+
+      grouplist.forEach(function(item){
+        if(item.id==targetId){
+          group=item;
+        }
+      })
+
+      if(group){
+        obj.onSuccess({name:group.name,portraitUri:group.portraitUri});
       }
     });
 
