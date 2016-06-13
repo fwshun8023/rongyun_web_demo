@@ -1685,6 +1685,8 @@ var RongWebIMWidget;
                                                 onSuccess: function (data) {
                                                     a.title = data.name;
                                                     a.portraitUri = data.portraitUri;
+                                                    // sendShow添加当前聊天区域是否显示参数
+                                                    a.sendShow = data.sendShow;
                                                     b.conversationTitle = data.name;
                                                     b.portraitUri = data.portraitUri;
                                                 }

@@ -15,13 +15,23 @@ demo.controller("main", ["$scope", "WebIMWidget", function($scope,WebIMWidget) {
       conversationListPosition: WebIMWidget.EnumConversationListPosition.left,
       onSuccess: function(id){
         // PRIVATE 私聊，GROUP 群聊
-        WebIMWidget.setConversation(WebIMWidget.EnumConversationType.GROUP, "g1", "群1", false);
+        WebIMWidget.setConversation(WebIMWidget.EnumConversationType.GROUP, "g1", "群1", true);
         // WebIMWidget.setConversation(WebIMWidget.EnumConversationType.PRIVATE, "f3", "李四3", true);
         // WebIMWidget.setConversation(WebIMWidget.EnumConversationType.PRIVATE, "f2", "fanwei", true);
         // WebIMWidget.setConversation(WebIMWidget.EnumConversationType.PRIVATE, "f1", "张三1", true);
       },
       onError: function(error){
-        console.log("error:" + error);
+        var errorCode = error.code;
+        var info = "";
+        switch (errorCode) {
+          case 0:
+            info = "token 无效";
+            break;
+          default:
+            info = "";
+        }
+        console.log(info);
+        console.log(errorCode);
       }
     });
 
@@ -50,7 +60,7 @@ demo.controller("main", ["$scope", "WebIMWidget", function($scope,WebIMWidget) {
     WebIMWidget.setGroupInfoProvider(function(targetId,obj){
       var group;
       grouplist = [
-      {"id": "g1", "name": "群1", "portraitUri": "", "sendShow": false}
+      {"id": "g1", "name": "群1", "portraitUri": "", "sendShow": true}
       ]
 
       grouplist.forEach(function(item){
